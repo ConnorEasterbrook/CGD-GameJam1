@@ -10,21 +10,36 @@ public class Movement : MonoBehaviour
     private Rigidbody playerRigidbody;
     private bool grounded = true;
 
-    private void Awake() 
+    private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
     }
 
-    private void Update() 
+    private void Update()
     {
-        CheckGrounded(); // Check if the player is grounded
-        JumpStrength(); // Check how long the player is holding the jump button
+        CheckGrounded(); // Check if the player is grounded.
+        JumpStrength(); // Check how long the player is holding the jump button.
 
-        playerRigidbody.AddForce(Vector2.down * gravity); // Add gravity to the player
+        playerRigidbody.AddForce(Vector2.down * gravity); // Add gravity to the player.
+        playerRigidbody.MovePosition(transform.position + Vector3.left * 2f * Time.deltaTime);
+
+        // Clamp the player's xPos to allow for limited horizontal movement.
+        var pos = transform.position;
+        pos.x = Mathf.Clamp(transform.position.x, -5.0f, 3.0f);
+        transform.position = pos;
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            playerRigidbody.MovePosition(transform.position + Vector3.right * 20f * Time.deltaTime); // Move the player right.
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            playerRigidbody.MovePosition(transform.position + Vector3.left * 20f * Time.deltaTime); // Move the player left.
+        }
     }
 
     /// <summary>
-    /// Checks if the player is grounded
+    /// Checks if the player is grounded.
     /// </summary>
     private void CheckGrounded()
     {
@@ -39,24 +54,23 @@ public class Movement : MonoBehaviour
     }
 
     /// <summary>
-    /// Checks how long the player is holding the jump button
+    /// Checks how long the player is holding the jump button.
     /// </summary>
     private void JumpStrength()
     {
+        // Upon pressing the jump button, charge up the jump.
         if (Input.GetButton("Jump") && grounded)
         {
             jumpCharge += 5 * Time.deltaTime;
         }
 
+        // If the player is grounded and the jump button is released, jump.
         if (Input.GetButtonUp("Jump") && grounded)
         {
-            jumpCharge = Mathf.Clamp(jumpCharge, 0, 1.75f);
-            float jumpPower = jumpForce * jumpCharge;
-
-            Debug.Log(jumpPower);
-
-            jumpCharge = 0.5f;
-            playerRigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse);
+            jumpCharge = Mathf.Clamp(jumpCharge, 0, 1.75f); // Clamp the jump charge to prevent the player from jumping too high.
+            float jumpPower = jumpForce * jumpCharge; // Calculate the jump power.
+            jumpCharge = 0.5f; // Reset the jump charge.
+            playerRigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); // Jump.
         }
     }
 }
