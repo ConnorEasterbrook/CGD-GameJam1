@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    public float smoothTime = 0.15f;
-    private Vector3 velocity = Vector3.zero;
-    public Transform target;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
+    public float smoothTime = 0.15f; // The time it takes to reach the target
+    public Transform target; // The target object to follow
+    private Vector3 velocity = Vector3.zero; // The velocity of the camera
 
     // Update is called once per frame
     void Update()
@@ -27,6 +21,7 @@ public class FollowCamera : MonoBehaviour
         }
         else
         {
+            // Stop camera from clipping under the level
             transform.position = new Vector3(transform.position.x, 0, transform.position.z);
         }
     }

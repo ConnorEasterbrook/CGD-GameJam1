@@ -20,7 +20,7 @@ public class Movement : MonoBehaviour
         CheckGrounded(); // Check if the player is grounded
         JumpStrength(); // Check how long the player is holding the jump button
 
-        playerRigidbody.AddForce(Vector2.down * gravity);
+        playerRigidbody.AddForce(Vector2.down * gravity); // Add gravity to the player
     }
 
     /// <summary>
