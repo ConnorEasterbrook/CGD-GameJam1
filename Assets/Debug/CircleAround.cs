@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class CircleAround : MonoBehaviour
 {
     public Transform targetToCircle;
     public float circleSpeed = 1;
