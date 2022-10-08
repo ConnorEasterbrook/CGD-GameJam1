@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     private float gravity = 2f;
     private Rigidbody playerRigidbody;
     private bool grounded = true;
+    [HideInInspector] public bool crouching;
 
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class Movement : MonoBehaviour
     {
         CheckGrounded(); // Check if the player is grounded.
         JumpStrength(); // Check how long the player is holding the jump button.
+        Crouch();
 
         playerRigidbody.AddForce(Vector2.down * gravity); // Add gravity to the player.
         playerRigidbody.MovePosition(transform.position + Vector3.left * 2f * Time.deltaTime);
@@ -71,6 +73,20 @@ public class Movement : MonoBehaviour
             float jumpPower = jumpForce * jumpCharge; // Calculate the jump power.
             jumpCharge = 0.5f; // Reset the jump charge.
             playerRigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); // Jump.
+        }
+    }
+
+    private void Crouch()
+    {
+        if (Input.GetButtonDown("Crouch"))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z); // Adjust for the crouch change to stop falling.
+            transform.localScale = new Vector3(1f, 0.5f, 1f); // Crouch the player.
+        }
+        if (Input.GetButtonUp("Crouch"))
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z); // Reset position.
+            transform.localScale = new Vector3(1f, 1f, 1f); // Uncrouch the player.
         }
     }
 }
