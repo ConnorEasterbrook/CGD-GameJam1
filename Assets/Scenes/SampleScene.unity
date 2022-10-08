@@ -691,6 +691,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpForce: 10
+  crouching: 0
 --- !u!54 &631097495
 Rigidbody:
   m_ObjectHideFlags: 0

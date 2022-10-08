@@ -61,13 +61,13 @@ public class Movement : MonoBehaviour
     private void JumpStrength()
     {
         // Upon pressing the jump button, charge up the jump.
-        if (Input.GetButton("Jump") && grounded)
+        if (Input.GetKey(KeyCode.Space) && grounded)
         {
             jumpCharge += 5 * Time.deltaTime;
         }
 
         // If the player is grounded and the jump button is released, jump.
-        if (Input.GetButtonUp("Jump") && grounded)
+        if (Input.GetKeyUp(KeyCode.Space) && grounded)
         {
             jumpCharge = Mathf.Clamp(jumpCharge, 0, 1.75f); // Clamp the jump charge to prevent the player from jumping too high.
             float jumpPower = jumpForce * jumpCharge; // Calculate the jump power.
@@ -78,12 +78,12 @@ public class Movement : MonoBehaviour
 
     private void Crouch()
     {
-        if (Input.GetButtonDown("Crouch"))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z); // Adjust for the crouch change to stop falling.
             transform.localScale = new Vector3(1f, 0.5f, 1f); // Crouch the player.
         }
-        if (Input.GetButtonUp("Crouch"))
+        if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z); // Reset position.
             transform.localScale = new Vector3(1f, 1f, 1f); // Uncrouch the player.
