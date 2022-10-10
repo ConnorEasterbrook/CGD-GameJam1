@@ -8,9 +8,6 @@ public class SpawnBuildings : MonoBehaviour
     public float spawnTime;
     public Transform spawnLocation;
     public float spawntimecooldown = 0f;
-    Transform randPosition;
-
-
 
     void Update()
     {

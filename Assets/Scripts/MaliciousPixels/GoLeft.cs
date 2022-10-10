@@ -6,10 +6,11 @@ public class GoLeft : MonoBehaviour
 {
     private int damage = 10;
     public float moveSpeed = 2f;
+    public float destroyTimer = 15f;
 
     private void Start()
     {
-        Destroy(gameObject, 15f);
+        Destroy(gameObject, destroyTimer);
     }
 
     void Update()
