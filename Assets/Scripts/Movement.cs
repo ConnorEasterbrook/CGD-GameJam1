@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     private float gravity = 2f;
     private Rigidbody playerRigidbody;
     private bool grounded = true;
+    [HideInInspector] public bool jumping;
     [HideInInspector] public bool crouching;
 
     private void Awake()
@@ -48,10 +49,12 @@ public class Movement : MonoBehaviour
         if (playerRigidbody.velocity.y == 0)
         {
             grounded = true;
+            jumping = false;
         }
         else
         {
             grounded = false;
+            jumping = true;
         }
     }
 
@@ -73,6 +76,7 @@ public class Movement : MonoBehaviour
             float jumpPower = jumpForce * jumpCharge; // Calculate the jump power.
             jumpCharge = 0.5f; // Reset the jump charge.
             playerRigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); // Jump.
+            jumping = true;
         }
     }
 
