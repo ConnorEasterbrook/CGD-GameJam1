@@ -15,7 +15,7 @@ public class GoLeft : MonoBehaviour
 
     void Update()
     {
-        transform.position += moveSpeed * transform.right * Time.deltaTime;
+        transform.position += (moveSpeed * Manager.DifficultySpeed) * transform.right * Time.deltaTime;
     }
 
     void OnCollisionEnter2D(Collision2D collision)

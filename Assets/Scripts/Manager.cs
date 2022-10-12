@@ -9,6 +9,6 @@ public class Manager : MonoBehaviour
     private void Update()
     {
         DifficultySpeed += (Time.deltaTime /80);
-        //Debug.Log(DifficultySpeed);
+        Debug.Log(DifficultySpeed);
     }
 }
