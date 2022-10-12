@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoLeft : MonoBehaviour
+public class GoLeftTime : MonoBehaviour
 {
     private int damage = 10;
     public float moveSpeed = 2f;
@@ -14,7 +14,7 @@ public class GoLeft : MonoBehaviour
 
     void Update()
     {
-        transform.position += moveSpeed * transform.right * Time.deltaTime;
+        transform.position += (moveSpeed * Manager.DifficultySpeed) * transform.right * Time.deltaTime;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
