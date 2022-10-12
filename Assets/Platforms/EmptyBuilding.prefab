@@ -1492,7 +1492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 1
-  destroyTimer: 20
+  destroyTimer: 44
 --- !u!1 &6647018805141261079
 GameObject:
   m_ObjectHideFlags: 0
