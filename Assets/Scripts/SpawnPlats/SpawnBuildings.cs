@@ -21,7 +21,8 @@ public class SpawnBuildings : MonoBehaviour
         {
             int randBuilding = Random.Range(0, building.Length);
             spawnLocation.position = new Vector3(spawnLocation.position.x, spawnLocation.position.y + Random.Range(-4.0f, 4f), spawnLocation.position.z);
-            Instantiate(building[randBuilding], spawnLocation.position, building[randBuilding].transform.rotation);
+            GameObject skyscraper = Instantiate(building[randBuilding], spawnLocation.position, building[randBuilding].transform.rotation);
+            skyscraper.transform.parent = gameObject.transform;
             spawntimecooldown = 0f;
         }
     }

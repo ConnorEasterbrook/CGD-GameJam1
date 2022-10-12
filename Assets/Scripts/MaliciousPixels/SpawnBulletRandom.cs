@@ -11,6 +11,7 @@ public class SpawnBulletRandom : MonoBehaviour
     public float spawntime = 1f;
     public float spawntimecooldown = 0f;
     public Quaternion spawnrotaion;
+    public GameObject parent;
 
     private void Start()
     {
@@ -23,7 +24,8 @@ public class SpawnBulletRandom : MonoBehaviour
 
         if (spawntimecooldown >= spawntime)
         {
-            Instantiate(projectile, spawnlocation.position, spawnrotaion);
+            GameObject obstacle = Instantiate(projectile, spawnlocation.position, spawnrotaion);
+            obstacle.transform.parent = parent.transform;
             spawntime = Random.Range(spawnMin, spawnMax);
             spawntimecooldown = 0f;
         }
