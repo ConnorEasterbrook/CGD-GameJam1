@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 117917988}
   - component: {fileID: 117917987}
   - component: {fileID: 117917986}
+  - component: {fileID: 117917990}
   m_Layer: 0
   m_Name: HighSpawnpint
   m_TagString: Untagged
@@ -220,6 +221,25 @@ Transform:
   m_Father: {fileID: 956734460}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &117917990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 117917985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1589075240e00ff49ab014c0eb267ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 6985821014437480772, guid: 0549436f30c314e4e86373b497f67593, type: 3}
+  spawnlocation: {fileID: 117917989}
+  spawnMin: 2
+  spawnMax: 6
+  spawntime: 1
+  spawntimecooldown: 0
+  spawnrotaion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
 --- !u!1 &203508074
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,13 +347,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 203508074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6607c8b28e46280409c53a4718b773d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1589075240e00ff49ab014c0eb267ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 6985821014437480772, guid: 0549436f30c314e4e86373b497f67593, type: 3}
   spawnlocation: {fileID: 203508078}
-  spawntime: 4
-  spawntimecooldown: 1
+  spawnMin: 1
+  spawnMax: 5
+  spawntime: 1
+  spawntimecooldown: 0
   spawnrotaion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
 --- !u!1 &229658430
 GameObject:
@@ -1132,7 +1154,8 @@ GameObject:
   - component: {fileID: 964893315}
   - component: {fileID: 964893314}
   - component: {fileID: 964893313}
-  - component: {fileID: 964893317}
+  - component: {fileID: 964893318}
+  - component: {fileID: 964893319}
   m_Layer: 0
   m_Name: LowSpawnpint
   m_TagString: Untagged
@@ -1218,7 +1241,7 @@ Transform:
   m_Father: {fileID: 956734460}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &964893317
+--- !u!114 &964893318
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1227,12 +1250,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 964893312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6607c8b28e46280409c53a4718b773d7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1589075240e00ff49ab014c0eb267ac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 6985821014437480772, guid: 0549436f30c314e4e86373b497f67593, type: 3}
   spawnlocation: {fileID: 964893316}
-  spawntime: 5
+  spawnMin: 1
+  spawnMax: 8
+  spawntime: 2
+  spawntimecooldown: 0
+  spawnrotaion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+--- !u!114 &964893319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964893312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b526cb7f80e236945bb3f4d79896a6a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectiles: []
+  spawnlocation: {fileID: 964893316}
+  spawnMin: 2
+  spawnMax: 6
+  spawntime: 1
   spawntimecooldown: 0
   spawnrotaion: {x: 0, y: 1, z: 0, w: -0.00000004371139}
 --- !u!1 &1134398008
@@ -1620,7 +1664,7 @@ BoxCollider:
   m_GameObject: {fileID: 1648483157}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1631,7 +1675,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1648483157}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
