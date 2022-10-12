@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GoLeft : MonoBehaviour
 {
-    private int damage = 10;
-    static public float moveSpeed = 1f;
+    // private int damage = 10;
+    static public float moveSpeed = 5f;
     public float destroyTimer = 20f;
 
     private void Start()
