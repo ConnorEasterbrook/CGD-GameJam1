@@ -13,16 +13,23 @@ public class FollowCamera : MonoBehaviour
 
     private void Awake()
     {
-        startPos = target.transform.position;
+        startPos = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
         // Define a target position above and behind the target transform
-        targetPosition = new Vector3(transform.position.x, target.position.y + 1.5f, transform.position.z);
+        targetPosition = new Vector3(startPos.x + CameraShake(), target.position.y + 1.5f + CameraShake(), startPos.z + CameraShake());
 
         // Smoothly move the camera towards that target position
         transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, smoothTime);
+    }
+
+    public float CameraShake()
+    {
+        float x = Random.Range(-0.5f, 0.5f);
+
+        return x;
     }
 }
