@@ -40,13 +40,16 @@ public class Movement : MonoBehaviour
         Vector3 pos = transform.position; // Create a new Vector3 variable called pos
 
         // If the player is crouching/sliding then increase the amount of left pull
-        if (crouching)
+        if (transform.position.x >= -7)
         {
-            pos = transform.position + Vector3.left * 8f * Time.deltaTime; // Add a left pull
-        }
-        else
-        {
-            pos = transform.position + Vector3.left * 4f * Time.deltaTime; // Add a left pull
+            if (crouching)
+            {
+                pos = transform.position + Vector3.left * 8f * Time.deltaTime; // Add a left pull
+            }
+            else
+            {
+                pos = transform.position + Vector3.left * 4f * Time.deltaTime; // Add a left pull
+            }
         }
 
         pos.x = Mathf.Clamp(pos.x, -10.5f, 3.5f); // Clamp the player's xPos to allow for limited horizontal movement.
@@ -73,7 +76,7 @@ public class Movement : MonoBehaviour
         velocity = new Vector3(velocity.x, fallingVelocity, velocity.z);
 
         // Create new variable to record collision with player movement
-        controller.Move(velocity * Time.deltaTime);
+        CollisionFlags playerCollision = controller.Move(velocity * Time.deltaTime);
 
         // If there is collision below the player (ground)
         if (controller.isGrounded)
