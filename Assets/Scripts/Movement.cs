@@ -37,8 +37,19 @@ public class Movement : MonoBehaviour
         Crouch();
 
         // Clamp xPos on right to stop the player from going off screen. Left is high clamp so they hit the killbox before going off screen.
-        Vector3 pos = Vector3.zero; // Create a new Vector3 variable called pos
-        pos.x = Mathf.Clamp(transform.position.x, -10.5f, 3.5f); // Clamp the player's xPos to allow for limited horizontal movement.
+        Vector3 pos = transform.position; // Create a new Vector3 variable called pos
+
+        // If the player is crouching/sliding then increase the amount of left pull
+        if (crouching)
+        {
+            pos = transform.position + Vector3.left * 8f * Time.deltaTime; // Add a left pull
+        }
+        else
+        {
+            pos = transform.position + Vector3.left * 4f * Time.deltaTime; // Add a left pull
+        }
+
+        pos.x = Mathf.Clamp(pos.x, -10.5f, 3.5f); // Clamp the player's xPos to allow for limited horizontal movement.
         transform.position = pos; // Set the player's xPos to the new position.
     }
 
@@ -72,20 +83,23 @@ public class Movement : MonoBehaviour
             fallingVelocity = 0; // Stop fallingVelocity
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && doubleJumping)
+        if (!crouching)
         {
-            jumping = true;
-            doubleJumping = false;
-            fallingVelocity = jumpForce;
-        }
-
-        // Check for jump input and if true, check that the character isn't jumping or falling. Then call Jump()
-        if (Input.GetKey(KeyCode.Space))
-        {
-            float sinceLastGrounded = Time.time - lastGroundedTime;
-            if (controller.isGrounded || !jumping)
+            if (Input.GetKeyDown(KeyCode.Space) && doubleJumping)
             {
-                Jump();
+                jumping = true;
+                doubleJumping = false;
+                fallingVelocity = jumpForce;
+            }
+
+            // Check for jump input and if true, check that the character isn't jumping or falling. Then call Jump()
+            if (Input.GetKey(KeyCode.Space))
+            {
+                float sinceLastGrounded = Time.time - lastGroundedTime;
+                if (controller.isGrounded || !jumping)
+                {
+                    Jump();
+                }
             }
         }
     }
