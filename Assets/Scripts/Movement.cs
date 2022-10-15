@@ -4,80 +4,98 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float jumpForce = 10f;
-    private float jumpCharge = 0f;
-    private float gravity = 2f;
-    private Rigidbody playerRigidbody;
-    private bool grounded = true;
-    [HideInInspector] public bool jumping;
+    // Essential Movement Variables
+    private CharacterController controller;
+
+    [Header("Player Movement")]
+    public float walkSpeed = 5.0f;
+    private float currentSpeed; // For determining our speed in code
+    public float jumpForce = 10.0f;
+    public float gravityForce = 20.0f;
+    private float fallingVelocity = 0.0f; // Keep track of falling speed
+    private float lastGroundedTime = 0.0f; // Keep track of when last grounded
+    [HideInInspector] public bool jumping = false; // Keep track of player jumping
     [HideInInspector] public bool crouching;
+    private bool doubleJumping = false; // Keep track of player double jumping
+    private Vector3 velocity;
 
     private void Awake()
     {
-        playerRigidbody = GetComponent<Rigidbody>();
+        // Assign controller variable to the Character Controller
+        controller = GetComponent<CharacterController>();
+    }
+
+    private void Start()
+    {
+        // Give currentSpeed variable a value
+        currentSpeed = walkSpeed;
     }
 
     private void Update()
     {
-        CheckGrounded(); // Check if the player is grounded.
-        JumpStrength(); // Check how long the player is holding the jump button.
+        DefaultMovement();
         Crouch();
 
-        playerRigidbody.AddForce(Vector2.down * gravity); // Add gravity to the player.
-        playerRigidbody.MovePosition(transform.position + Vector3.left * 2f * Time.deltaTime);
+        // Clamp xPos on right to stop the player from going off screen. Left is high clamp so they hit the killbox before going off screen.
+        Vector3 pos = Vector3.zero; // Create a new Vector3 variable called pos
+        pos.x = Mathf.Clamp(transform.position.x, -10.5f, 3.5f); // Clamp the player's xPos to allow for limited horizontal movement.
+        transform.position = pos; // Set the player's xPos to the new position.
+    }
 
-        // Clamp the player's xPos to allow for limited horizontal movement.
-        var pos = transform.position;
-        pos.x = Mathf.Clamp(transform.position.x, -5.0f, 3.0f);
-        transform.position = pos;
+    private void DefaultMovement()
+    {
+        // Create a new Vector2 variable that takes in our movement inputs
+        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        if (Input.GetKey(KeyCode.D))
+        // Normalize the Vector2 input variable and make it a Vector3. Then transform the input to move in world space.
+        Vector3 inputDirection = new Vector3(input.x, 0, 0).normalized;
+        Vector3 inputDirectionWorld = transform.TransformDirection(inputDirection);
+
+        // Create a new Vector3 that takes in our world movement and current speed to then use in a movement smoothing calculation
+        Vector3 targetVelocity = inputDirectionWorld * currentSpeed;
+        velocity = targetVelocity;
+
+        // Establish falling speed. Increase as the falling duration grows
+        fallingVelocity -= gravityForce * Time.deltaTime;
+
+        // Set velocity to match the recorded movement from previous movement sections
+        velocity = new Vector3(velocity.x, fallingVelocity, velocity.z);
+
+        // Create new variable to record collision with player movement
+        controller.Move(velocity * Time.deltaTime);
+
+        // If there is collision below the player (ground)
+        if (controller.isGrounded)
         {
-            playerRigidbody.MovePosition(transform.position + Vector3.right * 20f * Time.deltaTime); // Move the player right.
+            jumping = false; // Set jumping to false
+            doubleJumping = false; // Set doubleJumping to false
+            fallingVelocity = 0; // Stop fallingVelocity
         }
-        if (Input.GetKey(KeyCode.A))
+
+        if (Input.GetKeyDown(KeyCode.Space) && doubleJumping)
         {
-            playerRigidbody.MovePosition(transform.position + Vector3.left * 20f * Time.deltaTime); // Move the player left.
+            jumping = true;
+            doubleJumping = false;
+            fallingVelocity = jumpForce;
+        }
+
+        // Check for jump input and if true, check that the character isn't jumping or falling. Then call Jump()
+        if (Input.GetKey(KeyCode.Space))
+        {
+            float sinceLastGrounded = Time.time - lastGroundedTime;
+            if (controller.isGrounded || !jumping)
+            {
+                Jump();
+            }
         }
     }
 
-    /// <summary>
-    /// Checks if the player is grounded.
-    /// </summary>
-    private void CheckGrounded()
+    // Handles jump movement
+    private void Jump()
     {
-        if (playerRigidbody.velocity.y == 0)
-        {
-            grounded = true;
-            jumping = false;
-        }
-        else
-        {
-            grounded = false;
-            jumping = true;
-        }
-    }
-
-    /// <summary>
-    /// Checks how long the player is holding the jump button.
-    /// </summary>
-    private void JumpStrength()
-    {
-        // Upon pressing the jump button, charge up the jump.
-        if (Input.GetKey(KeyCode.Space) && grounded)
-        {
-            jumpCharge += 5 * Time.deltaTime;
-        }
-
-        // If the player is grounded and the jump button is released, jump.
-        if (Input.GetKeyUp(KeyCode.Space) && grounded)
-        {
-            jumpCharge = Mathf.Clamp(jumpCharge, 0, 1.75f); // Clamp the jump charge to prevent the player from jumping too high.
-            float jumpPower = jumpForce * jumpCharge; // Calculate the jump power.
-            jumpCharge = 0.5f; // Reset the jump charge.
-            playerRigidbody.AddForce(Vector2.up * jumpPower, ForceMode.Impulse); // Jump.
-            jumping = true;
-        }
+        jumping = true;
+        doubleJumping = true;
+        fallingVelocity = jumpForce;
     }
 
     private void Crouch()
