@@ -21,12 +21,7 @@ public class VerticalFollow : MonoBehaviour
     {
         if (movement != null)
         {
-            if (movement.crouching)
-            {
-                Vector3 pos = new Vector3(transform.position.x, transform.position.y + (target.transform.localScale.y / 2), transform.position.z); // If the player is crouching, move the camera down.
-                transform.position = pos;
-            }
-            else if (movement.jumping)
+            if (movement.jumping)
             {
                 Vector3 pos = new Vector3(transform.position.x, target.position.y - 0.25f, transform.position.z); // If the player is jumping, move the camera up.
                 transform.position = pos;
