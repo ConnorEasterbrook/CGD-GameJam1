@@ -15,9 +15,14 @@ public class Movement : MonoBehaviour
     private float fallingVelocity = 0.0f; // Keep track of falling speed
     private float lastGroundedTime = 0.0f; // Keep track of when last grounded
     [HideInInspector] public bool jumping = false; // Keep track of player jumping
-    [HideInInspector] public bool crouching;
+    [HideInInspector] public bool crouching = false;
+    private bool grounded;
     private bool doubleJumping = false; // Keep track of player double jumping
     private Vector3 velocity;
+    public AudioSource jumpSound;
+    public AudioSource doubleJumpSound;
+    public AudioSource landSound;
+    public AudioSource crouchSound;
 
     private void Awake()
     {
@@ -34,7 +39,6 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         DefaultMovement();
-        Crouch();
 
         // Clamp xPos on right to stop the player from going off screen. Left is high clamp so they hit the killbox before going off screen.
         Vector3 pos = transform.position; // Create a new Vector3 variable called pos
@@ -78,9 +82,25 @@ public class Movement : MonoBehaviour
         // Create new variable to record collision with player movement
         CollisionFlags playerCollision = controller.Move(velocity * Time.deltaTime);
 
+        if (controller.isGrounded && jumping)
+        {
+            if (doubleJumping)
+            {
+                landSound.pitch = 0.6f;
+                landSound.PlayOneShot(landSound.clip); // Play landing sound
+            }
+            else
+            {
+                landSound.pitch = 0.4f;
+                landSound.PlayOneShot(landSound.clip); // Play landing sound
+            }
+        }
+
         // If there is collision below the player (ground)
         if (controller.isGrounded)
         {
+            Crouch();
+            grounded = true;
             jumping = false; // Set jumping to false
             doubleJumping = false; // Set doubleJumping to false
             fallingVelocity = 0; // Stop fallingVelocity
@@ -90,9 +110,11 @@ public class Movement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space) && doubleJumping)
             {
+                grounded = false;
                 jumping = true;
                 doubleJumping = false;
                 fallingVelocity = jumpForce;
+                doubleJumpSound.Play();
             }
 
             // Check for jump input and if true, check that the character isn't jumping or falling. Then call Jump()
@@ -110,21 +132,26 @@ public class Movement : MonoBehaviour
     // Handles jump movement
     private void Jump()
     {
+        grounded = false;
         jumping = true;
         doubleJumping = true;
         fallingVelocity = jumpForce;
+        jumpSound.Play();
     }
 
     private void Crouch()
     {
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) || Input.GetKeyDown(KeyCode.S))
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z); // Adjust for the crouch change to stop falling.
+            crouchSound.Play();
+            crouching = true;
+            transform.position = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y / 2), transform.position.z); // Adjust for the crouch change to stop falling.
             transform.localScale = new Vector3(1f, 0.5f, 1f); // Crouch the player.
         }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
+        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.S))
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z); // Reset position.
+            crouching = false;
+            transform.position = new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), transform.position.z); // Reset position.
             transform.localScale = new Vector3(1f, 1f, 1f); // Uncrouch the player.
         }
     }
