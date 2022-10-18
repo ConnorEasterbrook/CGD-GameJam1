@@ -6,7 +6,7 @@ using TMPro;
 public class ScoreOverTime : MonoBehaviour
 {
     public TextMeshProUGUI Score;
-    public float score;
+    static public float score;
     private float timeChange;
     GameObject TimeHandler;
 
