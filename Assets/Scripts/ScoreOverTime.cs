@@ -7,12 +7,18 @@ public class ScoreOverTime : MonoBehaviour
 {
     public TextMeshProUGUI Score;
     public float score;
-    public float scoreOverTimeIncrease;
+    private float timeChange;
+    GameObject TimeHandler;
 
+    void Start()
+    {
+        TimeHandler = GameObject.FindWithTag("Time");
+    }
     // Update is called once per frame
     void Update()
     {
+        timeChange = TimeHandler.GetComponent<UniversalTimeController>().initialTime;
         Score.SetText(score.ToString("F0"));
-        score += scoreOverTimeIncrease * Time.deltaTime * 0.5f;
+        score += timeChange * Time.deltaTime;
     }
 }
