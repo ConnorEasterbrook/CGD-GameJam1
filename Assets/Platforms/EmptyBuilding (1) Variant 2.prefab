@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6188108002882250194, guid: e9fd81646fa03d04399ac8a5b0b7a158, type: 3}
       propertyPath: m_Name
-      value: EmptyBuilding (1)
+      value: EmptyBuilding (1) Variant 2
       objectReference: {fileID: 0}
     - target: {fileID: 8970361049189105362, guid: e9fd81646fa03d04399ac8a5b0b7a158, type: 3}
       propertyPath: m_RootOrder
