@@ -187,20 +187,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4297083}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a36098fa0320449aa3f828f367cee0, type: 3}
+  m_Script: {fileID: 11500000, guid: d4e2ff53f05c52e44be44772a1bb4e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectiles:
-  - {fileID: 0}
-  - {fileID: 0}
-  spawnlocation: {fileID: 0}
-  spawnMin: 1
+  projectiles: []
+  spawnlocation: {fileID: 4297084}
+  spawnMin: 2
   spawnMax: 10
   spawntime: 1
   spawntimecooldown: 0
-  spawnrotaion: {x: 0, y: 0, z: 0, w: 0}
+  spawnrotaion: {x: 0, y: 0, z: 1, w: -0.00000004371139}
 --- !u!1 &67712450
 GameObject:
   m_ObjectHideFlags: 0
@@ -1319,6 +1317,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tier2: {fileID: 963519785}
+  Top1: {fileID: 853410275}
+  Top2: {fileID: 2025460924}
+  Top3: {fileID: 4297083}
 --- !u!4 &461192680
 Transform:
   m_ObjectHideFlags: 0
@@ -2106,7 +2107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765867067}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 3.06, y: -28.36, z: -0.5}
+  m_LocalPosition: {x: 3.06, y: -28.3, z: -0.5}
   m_LocalScale: {x: 20.255259, y: 45.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2527,20 +2528,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853410275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75a36098fa0320449aa3f828f367cee0, type: 3}
+  m_Script: {fileID: 11500000, guid: d4e2ff53f05c52e44be44772a1bb4e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectiles:
-  - {fileID: 0}
-  - {fileID: 0}
-  spawnlocation: {fileID: 0}
+  projectiles: []
+  spawnlocation: {fileID: 853410276}
   spawnMin: 1
   spawnMax: 10
   spawntime: 1
   spawntimecooldown: 0
-  spawnrotaion: {x: 0, y: 0, z: 0, w: 0}
+  spawnrotaion: {x: 1, y: -0.00000004371139, z: -0.00000004371139, w: 1.9106855e-15}
 --- !u!1 &873704983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2923,7 +2922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &963519786
 Transform:
   m_ObjectHideFlags: 0
@@ -6078,7 +6077,7 @@ MonoBehaviour:
   - {fileID: 2288623112081846457, guid: bcc3ef38d4367ac418a62e697e467fbb, type: 3}
   - {fileID: 6985821014437480772, guid: 1c068fa1a2757594384cfa543957b95f, type: 3}
   spawnlocation: {fileID: 2025460925}
-  spawnMin: 1
+  spawnMin: 2
   spawnMax: 10
   spawntime: 1
   spawntimecooldown: 0
