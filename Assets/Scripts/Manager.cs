@@ -15,6 +15,6 @@ public class Manager : MonoBehaviour
     private void Update()
     {
         DifficultySpeed = TimeHandler.GetComponent<UniversalTimeController>().initialTime;
-        Debug.Log(DifficultySpeed);
+        // Debug.Log(DifficultySpeed);
     }
 }
