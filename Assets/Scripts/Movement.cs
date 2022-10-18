@@ -24,6 +24,7 @@ public class Movement : MonoBehaviour
     public AudioSource landSound;
     public AudioSource crouchSound;
     private PlayManager playManager;
+    public Animator anim;
 
     private void Awake()
     {
@@ -41,6 +42,22 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        if(jumping)
+        {
+            anim.SetBool("IsJumping", true);
+        }
+        if(!jumping)
+        {
+            anim.SetBool("IsJumping", false);
+        }
+        if(crouching)
+        {
+            anim.SetBool("IsDuck", true);
+        }
+        if(!crouching)
+        {
+            anim.SetBool("IsDuck", false);
+        }
         if (!playManager.Dead)
         {
             DefaultMovement();
@@ -49,7 +66,7 @@ public class Movement : MonoBehaviour
             {
                 crouching = false;
                 transform.position = new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), transform.position.z); // Reset position.
-                transform.localScale = new Vector3(1f, 1f, 1f); // Uncrouch the player.
+                //transform.localScale = new Vector3(1f, 1f, 1f); // Uncrouch the player.
             }
 
             // Clamp xPos on right to stop the player from going off screen. Left is high clamp so they hit the killbox before going off screen.
@@ -159,7 +176,7 @@ public class Movement : MonoBehaviour
             crouchSound.Play();
             crouching = true;
             transform.position = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y / 2), transform.position.z); // Adjust for the crouch change to stop falling.
-            transform.localScale = new Vector3(1f, 0.5f, 1f); // Crouch the player.
+            //transform.localScale = new Vector3(1f, 0.5f, 1f); // Crouch the player.
         }
     }
 }
