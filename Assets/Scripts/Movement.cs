@@ -23,11 +23,14 @@ public class Movement : MonoBehaviour
     public AudioSource doubleJumpSound;
     public AudioSource landSound;
     public AudioSource crouchSound;
+    private PlayManager playManager;
 
     private void Awake()
     {
         // Assign controller variable to the Character Controller
         controller = GetComponent<CharacterController>();
+
+        playManager = GetComponent<PlayManager>();
     }
 
     private void Start()
@@ -38,26 +41,36 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        DefaultMovement();
-
-        // Clamp xPos on right to stop the player from going off screen. Left is high clamp so they hit the killbox before going off screen.
-        Vector3 pos = transform.position; // Create a new Vector3 variable called pos
-
-        // If the player is crouching/sliding then increase the amount of left pull
-        if (transform.position.x >= -7)
+        if (!playManager.Dead)
         {
-            if (crouching)
-            {
-                pos = transform.position + Vector3.left * 8f * Time.deltaTime; // Add a left pull
-            }
-            else
-            {
-                pos = transform.position + Vector3.left * 4f * Time.deltaTime; // Add a left pull
-            }
-        }
+            DefaultMovement();
 
-        pos.x = Mathf.Clamp(pos.x, -10.5f, 3.5f); // Clamp the player's xPos to allow for limited horizontal movement.
-        transform.position = pos; // Set the player's xPos to the new position.
+            if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.S))
+            {
+                crouching = false;
+                transform.position = new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), transform.position.z); // Reset position.
+                transform.localScale = new Vector3(1f, 1f, 1f); // Uncrouch the player.
+            }
+
+            // Clamp xPos on right to stop the player from going off screen. Left is high clamp so they hit the killbox before going off screen.
+            Vector3 pos = transform.position; // Create a new Vector3 variable called pos
+
+            // If the player is crouching/sliding then increase the amount of left pull
+            if (transform.position.x >= -10)
+            {
+                if (crouching)
+                {
+                    pos = transform.position + Vector3.left * 8f * Time.deltaTime; // Add a left pull
+                }
+                else
+                {
+                    pos = transform.position + Vector3.left * 4f * Time.deltaTime; // Add a left pull
+                }
+            }
+
+            pos.x = Mathf.Clamp(pos.x, -20.5f, 3.5f); // Clamp the player's xPos to allow for limited horizontal movement.
+            transform.position = pos; // Set the player's xPos to the new position.
+        }
     }
 
     private void DefaultMovement()
@@ -118,7 +131,7 @@ public class Movement : MonoBehaviour
             }
 
             // Check for jump input and if true, check that the character isn't jumping or falling. Then call Jump()
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space) && controller.isGrounded)
             {
                 float sinceLastGrounded = Time.time - lastGroundedTime;
                 if (controller.isGrounded || !jumping)
@@ -147,12 +160,6 @@ public class Movement : MonoBehaviour
             crouching = true;
             transform.position = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y / 2), transform.position.z); // Adjust for the crouch change to stop falling.
             transform.localScale = new Vector3(1f, 0.5f, 1f); // Crouch the player.
-        }
-        if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.S))
-        {
-            crouching = false;
-            transform.position = new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), transform.position.z); // Reset position.
-            transform.localScale = new Vector3(1f, 1f, 1f); // Uncrouch the player.
         }
     }
 }
