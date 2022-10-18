@@ -3081,6 +3081,8 @@ MonoBehaviour:
   - {fileID: 6188108002882250194, guid: e9fd81646fa03d04399ac8a5b0b7a158, type: 3}
   - {fileID: 7918410083802448340, guid: 8324a0b9bfd2d9e47bee6168f2340b54, type: 3}
   - {fileID: 5417174543869931658, guid: 5c4c9b0cc6eedcf49821685c2ffaa3ab, type: 3}
+  - {fileID: 1827213745214871106, guid: 22fbd3016894c814b8676e6163f768fb, type: 3}
+  - {fileID: 1389337168923397739, guid: 0a8c0224e8cddc04ab0c427bb7a95b31, type: 3}
   spawnTime: 20
   spawnLocation: {fileID: 1401434026}
   spawntimecooldown: 0
