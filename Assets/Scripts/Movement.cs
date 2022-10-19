@@ -73,17 +73,17 @@ public class Movement : MonoBehaviour
             Vector3 pos = transform.position; // Create a new Vector3 variable called pos
 
             // If the player is crouching/sliding then increase the amount of left pull
-            if (transform.position.x >= -10)
-            {
-                if (crouching)
-                {
-                    pos = transform.position + Vector3.left * 8f * Time.deltaTime; // Add a left pull
-                }
-                else
-                {
-                    pos = transform.position + Vector3.left * 4f * Time.deltaTime; // Add a left pull
-                }
-            }
+            // if (transform.position.x >= -10)
+            // {
+            //     if (crouching)
+            //     {
+            //         pos = transform.position + Vector3.left * 8f * Time.deltaTime; // Add a left pull
+            //     }
+            //     else
+            //     {
+            //         pos = transform.position + Vector3.left * 4f * Time.deltaTime; // Add a left pull
+            //     }
+            // }
 
             pos.x = Mathf.Clamp(pos.x, -20.5f, 3.5f); // Clamp the player's xPos to allow for limited horizontal movement.
             transform.position = pos; // Set the player's xPos to the new position.
