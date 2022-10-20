@@ -119,13 +119,13 @@ public class Movement : MonoBehaviour
         // velocity = targetVelocity;
 
         // Establish falling speed. Increase as the falling duration grows
-        fallingVelocity -= gravityForce;
+        fallingVelocity -= (gravityForce / 800);
 
         // Set velocity to match the recorded movement from previous movement sections
         velocity = new Vector3(velocity.x, fallingVelocity, velocity.z);
 
         // Create new variable to record collision with player movement
-        CollisionFlags playerCollision = controller.Move(velocity * Time.deltaTime);
+        CollisionFlags playerCollision = controller.Move(velocity / 800);
 
         if (controller.isGrounded && jumping)
         {
