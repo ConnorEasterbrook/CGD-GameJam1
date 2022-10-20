@@ -61,6 +61,7 @@ public class Movement : MonoBehaviour
         if (!playManager.Dead)
         {
             DefaultMovement();
+            Crouch();
 
             if (Input.GetKeyUp(KeyCode.LeftControl) || Input.GetKeyUp(KeyCode.S))
             {
@@ -92,19 +93,33 @@ public class Movement : MonoBehaviour
 
     private void DefaultMovement()
     {
-        // Create a new Vector2 variable that takes in our movement inputs
-        Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 
-        // Normalize the Vector2 input variable and make it a Vector3. Then transform the input to move in world space.
-        Vector3 inputDirection = new Vector3(input.x, 0, 0).normalized;
-        Vector3 inputDirectionWorld = transform.TransformDirection(inputDirection);
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        {
+            // Move the player right
+            velocity.x = walkSpeed;
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        {
+            // Move the player left
+            velocity.x = -walkSpeed;
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
 
-        // Create a new Vector3 that takes in our world movement and current speed to then use in a movement smoothing calculation
-        Vector3 targetVelocity = inputDirectionWorld * currentSpeed;
-        velocity = targetVelocity;
+        // // Create a new Vector2 variable that takes in our movement inputs
+        // Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        // // Normalize the Vector2 input variable and make it a Vector3. Then transform the input to move in world space.
+        // Vector3 inputDirection = new Vector3(input.x, 0, 0).normalized;
+        // Vector3 inputDirectionWorld = transform.TransformDirection(inputDirection);
+
+        // // Create a new Vector3 that takes in our world movement and current speed to then use in a movement smoothing calculation
+        // Vector3 targetVelocity = inputDirectionWorld * currentSpeed;
+        // velocity = targetVelocity;
 
         // Establish falling speed. Increase as the falling duration grows
-        fallingVelocity -= gravityForce * Time.deltaTime;
+        fallingVelocity -= gravityForce;
 
         // Set velocity to match the recorded movement from previous movement sections
         velocity = new Vector3(velocity.x, fallingVelocity, velocity.z);
@@ -118,22 +133,13 @@ public class Movement : MonoBehaviour
             {
                 landSound.pitch = 0.6f;
                 landSound.PlayOneShot(landSound.clip); // Play landing sound
-            }
+                jumping = false;            }
             else
             {
                 landSound.pitch = 0.4f;
                 landSound.PlayOneShot(landSound.clip); // Play landing sound
+                jumping = false;
             }
-        }
-
-        // If there is collision below the player (ground)
-        if (controller.isGrounded)
-        {
-            Crouch();
-            grounded = true;
-            jumping = false; // Set jumping to false
-            doubleJumping = false; // Set doubleJumping to false
-            fallingVelocity = 0; // Stop fallingVelocity
         }
 
         if (!crouching)
