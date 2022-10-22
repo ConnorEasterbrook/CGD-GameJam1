@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class PlayManager : MonoBehaviour
 {
     public GameObject player;
-    private int lives = 3;
+    private int lives = 0;
     public bool Dead = false;
     private Vector3 spawnPos;
 
@@ -32,7 +32,7 @@ public class PlayManager : MonoBehaviour
         lives--;
         player.transform.position = new Vector3(spawnPos.x, spawnPos.y + 20, spawnPos.z);
         Debug.Log("You died");
-        NoDeath();
+        // NoDeath();
     }
 
     private async void NoDeath()
