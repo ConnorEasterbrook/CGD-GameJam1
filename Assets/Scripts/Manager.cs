@@ -8,9 +8,9 @@ public class Manager : MonoBehaviour
     GameObject TimeHandler;
     private int Tier = 0;
     public GameObject Tier2;
-    public GameObject Top1;
+    // public GameObject Top1;
     public GameObject Top2;
-    public GameObject Top3;
+    // public GameObject Top3;
 
     void Start()
     {
@@ -29,9 +29,9 @@ public class Manager : MonoBehaviour
 
         if (DifficultySpeed >= 2 && Tier == 1)
         {
-            Top1.GetComponent<DownObjectRight>().enabled = true;
+            // Top1.GetComponent<DownObjectRight>().enabled = true;
             Top2.GetComponent<Beam>().enabled = true;
-            Top3.GetComponent<DownObjectRight>().enabled = true;
+            // Top3.GetComponent<DownObjectRight>().enabled = true;
             Tier = 2;
             Debug.Log("Funtime2");
         }

@@ -13,6 +13,7 @@ public class PlayManager : MonoBehaviour
 
     private void Awake()
     {
+        Time.timeScale = 1.0f;
         spawnPos = player.transform.position;
     }
 

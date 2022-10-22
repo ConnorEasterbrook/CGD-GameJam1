@@ -42,19 +42,19 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        if(jumping)
+        if (jumping)
         {
             anim.SetBool("IsJumping", true);
         }
-        if(!jumping)
+        if (!jumping)
         {
             anim.SetBool("IsJumping", false);
         }
-        if(crouching)
+        if (crouching)
         {
             anim.SetBool("IsDuck", true);
         }
-        if(!crouching)
+        if (!crouching)
         {
             anim.SetBool("IsDuck", false);
         }
@@ -67,26 +67,14 @@ public class Movement : MonoBehaviour
             {
                 crouching = false;
                 transform.position = new Vector3(transform.position.x, transform.position.y + (transform.localScale.y / 2), transform.position.z); // Reset position.
-                //transform.localScale = new Vector3(1f, 1f, 1f); // Uncrouch the player.
+                transform.localScale = new Vector3(2f, 2f, 2f); // Uncrouch the player.
             }
 
             // Clamp xPos on right to stop the player from going off screen. Left is high clamp so they hit the killbox before going off screen.
             Vector3 pos = transform.position; // Create a new Vector3 variable called pos
 
-            // If the player is crouching/sliding then increase the amount of left pull
-            // if (transform.position.x >= -10)
-            // {
-            //     if (crouching)
-            //     {
-            //         pos = transform.position + Vector3.left * 8f * Time.deltaTime; // Add a left pull
-            //     }
-            //     else
-            //     {
-            //         pos = transform.position + Vector3.left * 4f * Time.deltaTime; // Add a left pull
-            //     }
-            // }
-
             pos.x = Mathf.Clamp(pos.x, -20.5f, 3.5f); // Clamp the player's xPos to allow for limited horizontal movement.
+            pos.z = Mathf.Clamp(pos.z, -1, -1); // Clamp the player's zPos to allow for limited vertical movement.
             transform.position = pos; // Set the player's xPos to the new position.
         }
     }
@@ -107,25 +95,14 @@ public class Movement : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, 180, 0);
         }
 
-        // // Create a new Vector2 variable that takes in our movement inputs
-        // Vector2 input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-
-        // // Normalize the Vector2 input variable and make it a Vector3. Then transform the input to move in world space.
-        // Vector3 inputDirection = new Vector3(input.x, 0, 0).normalized;
-        // Vector3 inputDirectionWorld = transform.TransformDirection(inputDirection);
-
-        // // Create a new Vector3 that takes in our world movement and current speed to then use in a movement smoothing calculation
-        // Vector3 targetVelocity = inputDirectionWorld * currentSpeed;
-        // velocity = targetVelocity;
-
         // Establish falling speed. Increase as the falling duration grows
-        fallingVelocity -= (gravityForce / 800);
+        fallingVelocity -= (gravityForce * Time.deltaTime);
 
         // Set velocity to match the recorded movement from previous movement sections
         velocity = new Vector3(velocity.x, fallingVelocity, velocity.z);
 
         // Create new variable to record collision with player movement
-        CollisionFlags playerCollision = controller.Move(velocity / 800);
+        CollisionFlags playerCollision = controller.Move(velocity * Time.deltaTime);
 
         if (controller.isGrounded && jumping)
         {
@@ -133,13 +110,20 @@ public class Movement : MonoBehaviour
             {
                 landSound.pitch = 0.6f;
                 landSound.PlayOneShot(landSound.clip); // Play landing sound
-                jumping = false;            }
+                jumping = false;
+                fallingVelocity = 0;
+            }
             else
             {
                 landSound.pitch = 0.4f;
                 landSound.PlayOneShot(landSound.clip); // Play landing sound
                 jumping = false;
+                // fallingVelocity = 0;
             }
+        }
+        else if (controller.isGrounded && !jumping)
+        {
+            fallingVelocity = 0;
         }
 
         if (!crouching)
@@ -182,7 +166,7 @@ public class Movement : MonoBehaviour
             crouchSound.Play();
             crouching = true;
             transform.position = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y / 2), transform.position.z); // Adjust for the crouch change to stop falling.
-            //transform.localScale = new Vector3(1f, 0.5f, 1f); // Crouch the player.
+            transform.localScale = new Vector3(2f, 1f, 2f); // Crouch the player.
         }
     }
 }

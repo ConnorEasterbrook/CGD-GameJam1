@@ -20,7 +20,7 @@ public class SpawnBuildings : MonoBehaviour
         if (spawntimecooldown >= (spawnTime / spawnTimeMultiplier))
         {
             int randBuilding = Random.Range(0, building.Length);
-            spawnLocation.position = new Vector3(spawnLocation.position.x, spawnLocation.position.y + Random.Range(-4.0f, 4f), spawnLocation.position.z);
+            spawnLocation.position = new Vector3(spawnLocation.position.x, spawnLocation.position.y + Random.Range(-1.0f, 1f), spawnLocation.position.z);
             GameObject skyscraper = Instantiate(building[randBuilding], spawnLocation.position, building[randBuilding].transform.rotation);
             spawntimecooldown = 0f;
         }
