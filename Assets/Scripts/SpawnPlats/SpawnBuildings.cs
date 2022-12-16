@@ -11,18 +11,32 @@ public class SpawnBuildings : MonoBehaviour
     public float spawntimecooldown = 0f;
     bool initSpawn;
 
-    void Update()
+    void Start()
     {
-        spawntimecooldown += Time.deltaTime;
+        StartCoroutine(SpawnBuilding());
+    }
 
-        spawnTimeMultiplier = (GoLeft.moveSpeed * Manager.DifficultySpeed);
+    // void Update()
+    // {
+    //     spawntimecooldown += Time.deltaTime;
 
-        if (spawntimecooldown >= (spawnTime / spawnTimeMultiplier))
-        {
-            int randBuilding = Random.Range(0, building.Length);
-            spawnLocation.position = new Vector3(spawnLocation.position.x, spawnLocation.position.y + Random.Range(-1.0f, 1f), spawnLocation.position.z);
-            GameObject skyscraper = Instantiate(building[randBuilding], spawnLocation.position, building[randBuilding].transform.rotation);
-            spawntimecooldown = 0f;
-        }
+    //     spawnTimeMultiplier = (GoLeft.moveSpeed * Manager.DifficultySpeed);
+
+    //     if (spawntimecooldown >= (spawnTime / spawnTimeMultiplier))
+    //     {
+    //         int randBuilding = Random.Range(0, building.Length);
+    //         spawnLocation.position = new Vector3(spawnLocation.position.x, spawnLocation.position.y + Random.Range(-1.0f, 1f), spawnLocation.position.z);
+    //         GameObject skyscraper = Instantiate(building[randBuilding], spawnLocation.position, building[randBuilding].transform.rotation);
+    //         spawntimecooldown = 0f;
+    //     }
+    // }
+
+    private IEnumerator SpawnBuilding()
+    {
+        yield return new WaitForSeconds(spawnTime);
+        int randBuilding = Random.Range(0, building.Length);
+        spawnLocation.position = new Vector3(spawnLocation.position.x, spawnLocation.position.y + Random.Range(-1.0f, 1f), spawnLocation.position.z);
+        GameObject skyscraper = Instantiate(building[randBuilding], spawnLocation.position, building[randBuilding].transform.rotation);
+        StartCoroutine(SpawnBuilding());
     }
 }

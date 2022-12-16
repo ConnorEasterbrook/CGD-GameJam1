@@ -5,12 +5,12 @@ using UnityEngine;
 public class GoLeft : MonoBehaviour
 {
     // private int damage = 10;
-    static public float moveSpeed = 5f;
-    public float destroyTimer = 20f;
+    public static float moveSpeed = 5f;
+    public float destroyTimer = 10f;
 
     private void Start()
     {
-        Destroy(gameObject, destroyTimer);
+        StartCoroutine(DestroyAfterFiveSeconds());
     }
 
     void Update()
@@ -18,8 +18,9 @@ public class GoLeft : MonoBehaviour
         transform.position += (moveSpeed * Manager.DifficultySpeed) * transform.right * Time.deltaTime;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private IEnumerator DestroyAfterFiveSeconds()
     {
+        yield return new WaitForSeconds(destroyTimer);
         Destroy(gameObject);
     }
 }
