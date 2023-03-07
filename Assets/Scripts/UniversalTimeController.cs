@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class UniversalTimeController : MonoBehaviour
 {
-    public float initialTime;
+    public static float initialTime = 0.1f;
+    public float DEBUGTIME;
     public float timeIncrease;
-    public float rateOfIncrease;
     // Update is called once per frame
     void Update()
     {
-        initialTime += timeIncrease * Time.deltaTime * rateOfIncrease;
+        DEBUGTIME = initialTime;
+
+        initialTime += timeIncrease * Time.deltaTime;
+        Mathf.Clamp(initialTime, 0, 15);
     }
 }

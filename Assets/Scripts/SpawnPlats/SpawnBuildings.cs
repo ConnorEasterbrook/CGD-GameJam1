@@ -4,39 +4,38 @@ using UnityEngine;
 
 public class SpawnBuildings : MonoBehaviour
 {
-    public GameObject[] building;
+    public GameObject building;
     public float spawnTime;
-    float spawnTimeMultiplier;
     public Transform spawnLocation;
-    public float spawntimecooldown = 0f;
     bool initSpawn;
+
+    public Vector2 heightRange = new Vector2(0, 0);
+    [SerializeField] private BoxCollider2D _boxCollider;
 
     void Start()
     {
-        StartCoroutine(SpawnBuilding());
+        // StartCoroutine(SpawnBuilding());
     }
 
-    // void Update()
-    // {
-    //     spawntimecooldown += Time.deltaTime;
+    void Update()
+    {
+        // Make spawn time relative to the speed of the game. Game speeds up so spawn time decreases
+        float spawnTimeMultiplier = UniversalTimeController.initialTime;
+        spawnTime = 4f / spawnTimeMultiplier;
 
-    //     spawnTimeMultiplier = (GoLeft.moveSpeed * Manager.DifficultySpeed);
+        
 
-    //     if (spawntimecooldown >= (spawnTime / spawnTimeMultiplier))
-    //     {
-    //         int randBuilding = Random.Range(0, building.Length);
-    //         spawnLocation.position = new Vector3(spawnLocation.position.x, spawnLocation.position.y + Random.Range(-1.0f, 1f), spawnLocation.position.z);
-    //         GameObject skyscraper = Instantiate(building[randBuilding], spawnLocation.position, building[randBuilding].transform.rotation);
-    //         spawntimecooldown = 0f;
-    //     }
-    // }
+    }
 
     private IEnumerator SpawnBuilding()
     {
-        yield return new WaitForSeconds(spawnTime);
-        int randBuilding = Random.Range(0, building.Length);
-        spawnLocation.position = new Vector3(spawnLocation.position.x, spawnLocation.position.y + Random.Range(-1.0f, 1f), spawnLocation.position.z);
-        GameObject skyscraper = Instantiate(building[randBuilding], spawnLocation.position, building[randBuilding].transform.rotation);
-        StartCoroutine(SpawnBuilding());
+        while (true)
+        {
+            yield return new WaitForSeconds(spawnTime);
+            Debug.Log(spawnTime);
+
+            // Spawn a new building at a random height using the building prefab
+            Instantiate(building, new Vector3(spawnLocation.position.x, Random.Range(heightRange.x, heightRange.y), spawnLocation.position.z), Quaternion.identity, this.transform);
+        }
     }
 }

@@ -18,7 +18,7 @@ public class Scroller : MonoBehaviour {
  
     void Update()
     {
-        _x = TimeHandler.GetComponent<UniversalTimeController>().initialTime;
+        _x = UniversalTimeController.initialTime;
         _img.uvRect = new Rect(_img.uvRect.position + new Vector2(_x * multipleSpeed,_y) * Time.deltaTime,_img.uvRect.size);
     }
 }
