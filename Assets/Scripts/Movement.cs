@@ -11,6 +11,7 @@ public class Movement : MonoBehaviour
     public float walkSpeed = 5.0f;
     private float currentSpeed; // For determining our speed in code
     public float jumpForce = 10.0f;
+    public float gravityForce = 9.81f;
     [HideInInspector] public bool jumping = false; // Keep track of player jumping
     [HideInInspector] public bool crouching = false;
     private bool doubleJumping = false; // Keep track of player double jumping
@@ -53,6 +54,7 @@ public class Movement : MonoBehaviour
         {
             anim.SetBool("IsDuck", false);
         }
+
         if (!playManager.Dead)
         {
             DefaultMovement();
@@ -67,19 +69,31 @@ public class Movement : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        float time = Time.time * 20f;
+        float stutter = Mathf.Sin(time) * 0.5f + 0.5f;
+        controller.gravityScale = gravityForce * stutter;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            controller.velocity += new Vector2(0f, jumpForce * stutter);
+        }
+    }
+
     private void DefaultMovement()
     {
         // Check for jump input and if true, check that the character isn't jumping or falling. Then call Jump()
         if (Input.GetKeyDown(KeyCode.Space) && !jumping)
         {
             jumping = true;
-            controller.velocity = new Vector2(controller.velocity.x, jumpForce);
+            controller.velocity += new Vector2(0, jumpForce);
             jumpSound.Play();
         }
         else if (Input.GetKeyDown(KeyCode.Space) && !doubleJumping)
         {
             doubleJumping = true;
-            controller.velocity = new Vector2(controller.velocity.x, jumpForce);
+            controller.velocity += new Vector2(0, jumpForce);
             doubleJumpSound.Play();
         }
     }
@@ -99,18 +113,18 @@ public class Movement : MonoBehaviour
     {
         // if (collision.gameObject.tag == "Ground")
         // {
-            if (doubleJumping)
-            {
-                landSound.pitch = 0.6f;
-            }
-            else
-            {
-                landSound.pitch = 0.4f;
-            }
+        if (doubleJumping)
+        {
+            landSound.pitch = 0.6f;
+        }
+        else
+        {
+            landSound.pitch = 0.4f;
+        }
 
-            landSound.PlayOneShot(landSound.clip); // Play landing sound
-            jumping = false;
-            doubleJumping = false;
+        landSound.PlayOneShot(landSound.clip); // Play landing sound
+        jumping = false;
+        doubleJumping = false;
         // }
         // else if (collision.gameObject.tag == "Building")
         // {
