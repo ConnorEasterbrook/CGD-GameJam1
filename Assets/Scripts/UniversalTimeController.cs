@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UniversalTimeController : MonoBehaviour
 {
-    public static float initialTime = 0.1f;
+    public static float initialTime = 1f;
     public float DEBUGTIME;
     public float timeIncrease;
     // Update is called once per frame

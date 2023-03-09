@@ -77,6 +77,7 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            controller.gravityScale = gravityForce;
             controller.velocity += new Vector2(0f, jumpForce * stutter);
         }
     }
