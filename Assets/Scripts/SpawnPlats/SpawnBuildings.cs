@@ -4,27 +4,17 @@ using UnityEngine;
 
 public class SpawnBuildings : MonoBehaviour
 {
-    public GameObject building;
     public float spawnTime;
     public Transform spawnLocation;
     bool initSpawn;
-
-    public Vector2 heightRange = new Vector2(0, 0);
-    [SerializeField] private BoxCollider2D _boxCollider;
-
-    void Start()
-    {
-        // StartCoroutine(SpawnBuilding());
-    }
+    public Vector2 heightRange = new Vector2(-30, -22);
+    public GameObject[] building;
 
     void Update()
     {
         // Make spawn time relative to the speed of the game. Game speeds up so spawn time decreases
         float spawnTimeMultiplier = UniversalTimeController.initialTime;
         spawnTime = 4f / spawnTimeMultiplier;
-
-        
-
     }
 
     private IEnumerator SpawnBuilding()
@@ -32,10 +22,11 @@ public class SpawnBuildings : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnTime);
-            Debug.Log(spawnTime);
+
+            int buildingIndex = Random.Range(0, building.Length);
 
             // Spawn a new building at a random height using the building prefab
-            Instantiate(building, new Vector3(spawnLocation.position.x, Random.Range(heightRange.x, heightRange.y), spawnLocation.position.z), Quaternion.identity, this.transform);
+            Instantiate(building[buildingIndex], new Vector3(spawnLocation.position.x, Random.Range(heightRange.x, heightRange.y), spawnLocation.position.z), Quaternion.identity, this.transform);
         }
     }
 }
