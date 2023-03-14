@@ -1419,6 +1419,7 @@ MonoBehaviour:
   - {fileID: 2801463166892470487, guid: c085dfaf62453774b9b663d004ce9e34, type: 3}
   - {fileID: 2801463166892470487, guid: b749f09a475838c4bbdb2ba71352af91, type: 3}
   - {fileID: 2801463166892470487, guid: 26a95c7990431bd48b4e9ef09aa1ae85, type: 3}
+  - {fileID: 2801463166892470487, guid: 39d91b11e0e287a4db6de46b734c0f34, type: 3}
   heightRange: {x: -30, y: -22}
 --- !u!1 &1040399172
 GameObject:

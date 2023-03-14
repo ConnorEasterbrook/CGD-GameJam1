@@ -7,9 +7,12 @@ public class Score_Pickup : MonoBehaviour
     public int scoreFromPickup = 20;
     
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        ScoreOverTime.score += scoreFromPickup;
-        Destroy(gameObject);
+        if(other.gameObject.tag == "Player")
+        {
+            ScoreOverTime.score += scoreFromPickup;
+            Destroy(gameObject);
+        }
     }
 }
