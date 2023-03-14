@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 4
-  jumpForce: 12
+  jumpForce: 13
   gravityForce: 5
   jumping: 0
   crouching: 0
@@ -1371,7 +1371,8 @@ Transform:
   m_LocalPosition: {x: -0.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1848980727}
   m_Father: {fileID: 274045631}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1414,7 +1415,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 1848980727}
-  spawnObject: {fileID: 2801463166892470487, guid: c085dfaf62453774b9b663d004ce9e34, type: 3}
+  spawnObject:
+  - {fileID: 2801463166892470487, guid: c085dfaf62453774b9b663d004ce9e34, type: 3}
+  - {fileID: 2801463166892470487, guid: b749f09a475838c4bbdb2ba71352af91, type: 3}
+  - {fileID: 2801463166892470487, guid: 26a95c7990431bd48b4e9ef09aa1ae85, type: 3}
   heightRange: {x: -30, y: -22}
 --- !u!1 &1040399172
 GameObject:
@@ -2390,7 +2394,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1848980727}
-  - component: {fileID: 1848980726}
   m_Layer: 6
   m_Name: BuildingSpawner
   m_TagString: Untagged
@@ -2398,25 +2401,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1848980726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1848980725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db237ae9ee46fbd449b3e6b5dab2088a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnTime: 2
-  spawnLocation: {fileID: 1848980727}
-  heightRange: {x: -30, y: -22}
-  building:
-  - {fileID: 2801463166892470487, guid: c085dfaf62453774b9b663d004ce9e34, type: 3}
-  - {fileID: 2801463166892470487, guid: b749f09a475838c4bbdb2ba71352af91, type: 3}
-  - {fileID: 2801463166892470487, guid: 26a95c7990431bd48b4e9ef09aa1ae85, type: 3}
 --- !u!4 &1848980727
 Transform:
   m_ObjectHideFlags: 0
@@ -2425,11 +2409,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848980725}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.05, y: 0, z: -1}
+  m_LocalPosition: {x: 33, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2054564907}
+  m_Father: {fileID: 1031524748}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1862318256
@@ -2458,8 +2442,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862318256}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -1.1099992, y: -12.499996, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -1.11, y: -22.25, z: 0}
+  m_LocalScale: {x: 22.05, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 473828490}
@@ -2632,7 +2616,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2801463166892470487, guid: c085dfaf62453774b9b663d004ce9e34, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Building
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2666,7 +2650,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 642715115}
-  - {fileID: 1848980727}
   - {fileID: 2801463167595178052}
   m_Father: {fileID: 274045631}
   m_RootOrder: -1
@@ -2992,7 +2975,7 @@ GameObject:
   - component: {fileID: 207721851}
   m_Layer: 6
   m_Name: Dud Building
-  m_TagString: Player
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -4,22 +4,12 @@ using UnityEngine;
 
 public class Death : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerEnter(Collider other) 
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "Player")
         {
+            Debug.Log("Death: OnTriggerEnter");
             other.gameObject.GetComponent<PlayManager>().UpdateDeath();
         }
     }

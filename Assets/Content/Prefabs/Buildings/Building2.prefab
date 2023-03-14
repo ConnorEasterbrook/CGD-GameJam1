@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 642715116}
   m_Layer: 6
   m_Name: Building2
-  m_TagString: Player
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
