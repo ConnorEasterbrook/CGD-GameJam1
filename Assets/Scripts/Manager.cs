@@ -8,7 +8,7 @@ public class Manager : MonoBehaviour
 
     void Awake()
     {
-        Application.targetFrameRate = 20;
+        Application.targetFrameRate = 15;
     }
 
     private void Update()
