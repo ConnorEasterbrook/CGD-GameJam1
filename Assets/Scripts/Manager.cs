@@ -8,6 +8,7 @@ public class Manager : MonoBehaviour
 
     void Awake()
     {
+        QualitySettings.vSyncCount = 0;
         Application.targetFrameRate = 15;
     }
 

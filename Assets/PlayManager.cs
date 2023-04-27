@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public class PlayManager : MonoBehaviour
 {
     public GameObject player;
-    private int lives = 0;
+    private int lives = 3;
     public bool Dead = false;
     private Vector3 spawnPos;
 
@@ -20,7 +20,7 @@ public class PlayManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (lives < 0)
+        if (lives <= 0)
         {
             SceneManager.LoadScene("GameOver");
         }
@@ -28,11 +28,8 @@ public class PlayManager : MonoBehaviour
 
     public void UpdateDeath()
     {
-        Dead = true;
-        lives--;
+        lives -= 1;
         player.transform.position = new Vector3(spawnPos.x, spawnPos.y + 20, spawnPos.z);
-        Debug.Log("You died");
-        // NoDeath();
     }
 
     private async void NoDeath()
