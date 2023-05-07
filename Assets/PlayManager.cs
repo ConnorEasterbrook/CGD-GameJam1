@@ -58,6 +58,7 @@ public class PlayManager : MonoBehaviour
             cooldown -= Time.deltaTime;
             if (cooldown <= 0)
             {
+                lives += 1;
                 livesText[1].SetActive(false);
                 cooldown = 1f;
                 lifeCollected = false;
