@@ -8,12 +8,13 @@ public class PlayManager : MonoBehaviour
 {
     public GameObject player;
     public GameObject[] livesText;
-    private int lives = 3;
+    [SerializeField] private int lives = 3;
     private bool hit = false;
     public bool lifeCollected = false;
     public bool Dead = false;
     private Vector3 spawnPos;
     private float cooldown = 1f;
+    public HighScore hiscore;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class PlayManager : MonoBehaviour
     {
         if (lives <= 0)
         {
+            hiscore.setScore((int)ScoreOverTime.score);
             SceneManager.LoadScene("GameOver");
         }
 
