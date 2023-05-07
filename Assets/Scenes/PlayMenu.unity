@@ -398,7 +398,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HAMBURGLER ESCAPE
+  m_text: HAMBURGLAR ESCAPE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1579c9651f0803e48a808205b89d83cb, type: 2}
   m_sharedMaterial: {fileID: 6872542485392721425, guid: 1579c9651f0803e48a808205b89d83cb, type: 2}
