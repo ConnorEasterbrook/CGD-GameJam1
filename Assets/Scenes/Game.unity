@@ -1769,6 +1769,10 @@ MonoBehaviour:
   - {fileID: 2801463166892470487, guid: 39d91b11e0e287a4db6de46b734c0f34, type: 3}
   - {fileID: 2801463166892470487, guid: 617778d2c533ab94e992ae01e661b5cf, type: 3}
   - {fileID: 2801463166892470487, guid: 5eeeec0b0fe58944e900945d3a1556c3, type: 3}
+  - {fileID: 2801463166892470487, guid: 1ed479dfdb9f6b440a13733b7d6a187f, type: 3}
+  - {fileID: 2801463166892470487, guid: ce81d893664512d4fbcf9371357784bc, type: 3}
+  - {fileID: 2801463166892470487, guid: 5be6b46e1db78ce48a7671bfbef06874, type: 3}
+  - {fileID: 2801463166892470487, guid: 45473fd3d98c2bd40ab01b7b84bd7e66, type: 3}
   heightRange: {x: -30, y: -18}
   startingHouse: {fileID: 726348066}
 --- !u!1 &1040399172
