@@ -11,6 +11,7 @@ public class PlayManager : MonoBehaviour
     [SerializeField] private int lives = 3;
     private bool hit = false;
     public bool lifeCollected = false;
+    private bool lifeAdded = true;
     public bool Dead = false;
     private Vector3 spawnPos;
     private float cooldown = 1f;
@@ -54,14 +55,19 @@ public class PlayManager : MonoBehaviour
     {
         if (lifeCollected)
         {
+            if (lifeAdded)
+            {
+                lives += 1;
+                lifeAdded = false;
+            }
             livesText[1].SetActive(true);
             cooldown -= Time.deltaTime;
             if (cooldown <= 0)
             {
-                lives += 1;
                 livesText[1].SetActive(false);
                 cooldown = 1f;
                 lifeCollected = false;
+                lifeAdded = true;
             }
         }
     }
